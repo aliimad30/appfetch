@@ -34,7 +34,7 @@ def download_and_replace_script():
 
 def run_selenium_script():
     while True:
-        print("----------------------------------")
+        print("------------------------------------")
         print(f"Using Version {SCRIPT_VERSION}")
         # Initialize WebDriver
         service = webdriver.ChromeService(executable_path='/usr/bin/chromedriver')
