@@ -88,8 +88,7 @@ def run_selenium_script():
             print(f'An Earlier Appointment Exists on {retrieved_date}')
             sender = 'filamaworldlive@gmail.com'
             password = 'hpkqoljarzssbduj'
-            recipient = '4694411128@tmomail.net'
-
+            recipient = 'ali.imad.sultan@gmail.com'
             smtp_server = 'smtp.gmail.com'
             smtp_port = 587
 
@@ -106,7 +105,7 @@ def run_selenium_script():
             print('No Earlier Appointment Exists')
             sender = 'filamaworldlive@gmail.com'
             password = 'hpkqoljarzssbduj'
-            recipient = '4694411128@tmomail.net'
+            recipient = 'ali.imad.sultan@gmail.com'
 
             smtp_server = 'smtp.gmail.com'
             smtp_port = 587
