@@ -104,7 +104,7 @@ def run_selenium_script():
             server = smtplib.SMTP(smtp_server, smtp_port)
             server.starttls()
             server.login(sender, password)
-            msg = f'An Earlier Appointment, {retrieved_date}, is Available.'
+            msg = f'An Earlier Appointment, {retrieved_date}, is Available. {SCRIPT_VERSION}'
             headers = f"Subject: {msg}\r\n"
             
             server.sendmail(sender, recipient, headers)
@@ -122,7 +122,7 @@ def run_selenium_script():
             server = smtplib.SMTP(smtp_server, smtp_port)
             server.starttls()
             server.login(sender, password)
-            msg = f'No Earlier Appointment is Available.'
+            msg = f'No Earlier Appointment is Available. {SCRIPT_VERSION}'
             headers = f"Subject: {msg}\r\n"
             server.sendmail(sender, recipient, headers)
             server.quit()
