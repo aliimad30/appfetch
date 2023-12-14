@@ -1,4 +1,4 @@
-SCRIPT_VERSION = "1.4.0"
+SCRIPT_VERSION = "1.5.0"
 
 import requests
 import os
@@ -34,7 +34,8 @@ def download_and_replace_script():
 
 def run_selenium_script():
     while True:
-        print(f"\nUsing Version {SCRIPT_VERSION}\n")
+        print("----------------------------------")
+        print(f"Using Version {SCRIPT_VERSION}")
         # Initialize WebDriver
         service = webdriver.ChromeService(executable_path='/usr/bin/chromedriver')
         driver = webdriver.Chrome(service=service)
@@ -84,7 +85,7 @@ def run_selenium_script():
         comparison_date = datetime.date(2024, 1, 9)
 
         if retrieved_date < comparison_date:
-            print(f'An Earlier Appointment Exists on {retrieved_date}\n')
+            print(f'An Earlier Appointment Exists on {retrieved_date}')
             sender = 'filamaworldlive@gmail.com'
             password = 'hpkqoljarzssbduj'
             recipient = '4694411128@tmomail.net'
@@ -102,13 +103,13 @@ def run_selenium_script():
             server.quit()
             print('Message sent')
         else:
-            print('No Earlier Appointment Exists\n')
+            print('No Earlier Appointment Exists')
 
         driver.quit()
         print("WebDriver quit successfully")
 
         # Check for updates
-        print("Checking for script updates...\n")
+        print("Checking for script updates...")
         github_version = get_github_script_version()
         if github_version and github_version > SCRIPT_VERSION:
             print("New version found. Updating script...")
@@ -116,7 +117,8 @@ def run_selenium_script():
             os.execl(sys.executable, sys.executable, *sys.argv)
 
         # Wait for 60 minutes before the next run
-        print("Waiting for 20 seconds before the next run.\n")
+        print("Waiting for 20 seconds before the next run.")
+        print("--------------------------------------------")
         time.sleep(20)
 
 # Start the script
