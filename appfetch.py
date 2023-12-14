@@ -115,7 +115,7 @@ def run_selenium_script():
             os.execl(sys.executable, sys.executable, *sys.argv)
 
         # Wait for 60 minutes before the next run
-        print("Waiting for 60 minutes before the next run.")
+        print("Waiting for 20 seconds before the next run.")
         time.sleep(20)
 
 # Start the script
