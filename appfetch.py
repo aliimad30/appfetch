@@ -1,5 +1,8 @@
 SCRIPT_VERSION = "1.1.0"
 
+import requests
+import os
+import sys
 import threading
 import time
 from selenium import webdriver
@@ -8,11 +11,7 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 import datetime
 import smtplib
-import requests
-import os
-import sys
 
-# Your GitHub script URL (pointing to raw content)
 GITHUB_SCRIPT_URL = 'https://raw.githubusercontent.com/aliimad30/appfetch/main/appfetch.py'
 
 def get_github_script_version():
@@ -32,7 +31,7 @@ def download_and_replace_script():
     response = requests.get(GITHUB_SCRIPT_URL)
     with open(__file__, 'w') as file:
         file.write(response.text)
-        
+
 def run_selenium_script():
     while True:
         # Initialize WebDriver
@@ -106,6 +105,14 @@ def run_selenium_script():
 
         driver.quit()
         print("WebDriver quit successfully")
+
+        # Check for updates
+        print("Checking for script updates...")
+        github_version = get_github_script_version()
+        if github_version and github_version > SCRIPT_VERSION:
+            print("New version found. Updating script...")
+            download_and_replace_script()
+            os.execl(sys.executable, sys.executable, *sys.argv)
 
         # Wait for 60 minutes before the next run
         print("Waiting for 60 minutes before the next run.")
