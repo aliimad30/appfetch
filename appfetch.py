@@ -8,7 +8,31 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 import datetime
 import smtplib
+import requests
+import os
+import sys
 
+# Your GitHub script URL (pointing to raw content)
+GITHUB_SCRIPT_URL = 'https://raw.githubusercontent.com/aliimad30/appfetch/main/appfetch.py'
+
+def get_github_script_version():
+    try:
+        response = requests.get(GITHUB_SCRIPT_URL)
+        github_script = response.text
+        for line in github_script.split('\n'):
+            if "SCRIPT_VERSION" in line:
+                github_version = line.split('=')[1].strip().strip('"')
+                return github_version
+        return None
+    except Exception as e:
+        print(f"Error fetching GitHub version: {e}")
+        return None
+
+def download_and_replace_script():
+    response = requests.get(GITHUB_SCRIPT_URL)
+    with open(__file__, 'w') as file:
+        file.write(response.text)
+        
 def run_selenium_script():
     while True:
         # Initialize WebDriver
