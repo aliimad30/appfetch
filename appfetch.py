@@ -1,4 +1,4 @@
-SCRIPT_VERSION = "1.5.0"
+SCRIPT_VERSION = "2.0.0"
 
 import requests
 import os
@@ -34,7 +34,7 @@ def download_and_replace_script():
 
 def run_selenium_script():
     while True:
-        print("------------------------------------")
+        print("----------------------------------")
         print(f"Using Version {SCRIPT_VERSION}")
         # Initialize WebDriver
         service = webdriver.ChromeService(executable_path='/usr/bin/chromedriver')
@@ -101,9 +101,24 @@ def run_selenium_script():
             
             server.sendmail(sender, recipient, headers)
             server.quit()
-            print('Message sent')
+            print('App Message sent')
         else:
             print('No Earlier Appointment Exists')
+            sender = 'filamaworldlive@gmail.com'
+            password = 'hpkqoljarzssbduj'
+            recipient = '4694411128@tmomail.net'
+
+            smtp_server = 'smtp.gmail.com'
+            smtp_port = 587
+
+            server = smtplib.SMTP(smtp_server, smtp_port)
+            server.starttls()
+            server.login(sender, password)
+            msg = f'No Earlier Appointment is Available.'
+            headers = f"Subject: {msg}\r\n"
+            server.sendmail(sender, recipient, headers)
+            server.quit()
+            print('No App Message sent')
 
         driver.quit()
         print("WebDriver quit successfully")
@@ -116,10 +131,10 @@ def run_selenium_script():
             download_and_replace_script()
             os.execl(sys.executable, sys.executable, *sys.argv)
 
-        # Wait for 60 minutes before the next run
-        print("Waiting for 20 seconds before the next run.")
+        # Wait for 10 minutes before the next run
+        print("Waiting for 10 minutes before the next run.")
         print("--------------------------------------------")
-        time.sleep(20)
+        time.sleep(600)
 
 # Start the script
 run_selenium_script()
