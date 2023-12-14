@@ -1,4 +1,4 @@
-SCRIPT_VERSION = "3.0.0"
+SCRIPT_VERSION = "4.0.0"
 
 import requests
 import os
@@ -133,10 +133,10 @@ def run_selenium_script():
 
         
 
-        # Wait for 10 minutes before the next run
-        print("Waiting for 10 minutes before the next run.")
+        # Wait for 1 hour before the next run
+        print("Waiting for 1 hour before the next run.")
         print("--------------------------------------------")
-        time.sleep(600)
+        time.sleep(3600)
 
 # Start the script
 run_selenium_script()
