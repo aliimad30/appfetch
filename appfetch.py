@@ -88,7 +88,7 @@ def run_selenium_script():
 
         # Wait for 60 minutes before the next run
         print("Waiting for 60 minutes before the next run.")
-        time.sleep(3600)
+        time.sleep(20)
 
 # Start the script
 run_selenium_script()
