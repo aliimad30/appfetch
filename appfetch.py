@@ -1,4 +1,4 @@
-SCRIPT_VERSION = "1.2.0"
+SCRIPT_VERSION = "1.3.0"
 
 import requests
 import os
@@ -34,6 +34,7 @@ def download_and_replace_script():
 
 def run_selenium_script():
     while True:
+        print(f"Using Version {SCRIPT_VERSION}")
         # Initialize WebDriver
         service = webdriver.ChromeService(executable_path='/usr/bin/chromedriver')
         driver = webdriver.Chrome(service=service)
