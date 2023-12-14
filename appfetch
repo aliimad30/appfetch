@@ -1,0 +1,124 @@
+import threading
+import time
+from selenium import webdriver
+from selenium.webdriver.common.by import By
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
+import datetime
+import smtplib
+
+def run_selenium_script():
+    try:
+        # Initialize WebDriver
+        driver = webdriver.Chrome()  # Make sure you have Chrome WebDriver installed and in PATH
+
+        # Navigate to the website
+        driver.get('https://nqa3.nemoqappointment.com/Booking/Booking/Index/vh356kg3s6')
+
+        # Wait for the page to load
+        time.sleep(2)  # Adjust the sleep time as needed for the page to load
+
+        # Find the input field for Booking Number and insert the value
+        booking_number_field = driver.find_element(By.ID, "BookingNumber")
+        booking_number_field.send_keys("1541422089")
+
+        # Find the input field for Contact Info and insert the value
+        contact_info_field = driver.find_element(By.ID, "ContactInfo")
+        contact_info_field.send_keys("4694411128")
+
+        # Find and click the "Edit appointment" button
+        edit_appointment_button = driver.find_element(By.XPATH, "//input[@value='Edit appointment']")
+        edit_appointment_button.click()
+
+        # Wait for the next page to load
+        WebDriverWait(driver, 10).until(
+            EC.presence_of_element_located((By.XPATH, "//input[@value='Edit']"))
+        )
+
+        # Find and click the "Edit" button on the next page
+        edit_button = driver.find_element(By.XPATH, "//input[@value='Edit']")
+        edit_button.click()
+
+        # Wait for the "This week" link to become clickable
+        this_week_link = WebDriverWait(driver, 10).until(
+            EC.element_to_be_clickable((By.ID, "thisweek"))
+        )
+
+        # Click the "This week" link
+        this_week_link.click()
+
+        time.sleep(2)
+
+        # Find and click the "First available time" button
+        time_search_first_available_button = driver.find_element(By.XPATH, "//input[@value='First available time']")
+        time_search_first_available_button.click()
+
+        # Wait for the time table to load
+        WebDriverWait(driver, 10).until(
+            EC.presence_of_element_located((By.XPATH, "//*[contains(@data-function, 'timeTableCell')]"))
+        )
+
+        # Find the first time table cell
+        first_time_cell = driver.find_element(By.XPATH, "//*[contains(@data-function, 'timeTableCell')]")
+
+        # Retrieve the aria-label attribute
+        aria_label_value = first_time_cell.get_attribute('aria-label')
+
+        # Convert the retrieved date to a datetime object
+        retrieved_date = datetime.datetime.strptime(aria_label_value, '%m/%d/%Y %I:%M:%S %p').date()
+
+        # Define the comparison date
+        comparison_date = datetime.date(2024, 1, 20)
+
+        # Compare the two dates and send a text message if earlier
+        if retrieved_date < comparison_date:
+            print(f'An Earlier Appointment Exists on {retrieved_date}')
+            try:
+                # Email settings from your original code
+                sender = 'filamaworldlive@gmail.com'
+                password = 'hpkqoljarzssbduj'
+                recipient = '4694411128@tmomail.net'
+                recipient = 'ali.imad.sultan@gmail.com'
+                
+                smtp_server = 'smtp.gmail.com'
+                smtp_port = 587
+
+                # Connect to SMTP server and send email
+                server = smtplib.SMTP(smtp_server, smtp_port)
+                server.starttls()
+                server.login(sender, password)
+                msg = f'An Earlier Appointment, {retrieved_date}, is Available.'
+                headers = f"Subject: {msg}\r\n"
+                
+                server.sendmail(sender, recipient, headers)
+                server.quit()
+                print('Message sent')
+            except Exception as e:
+                print("Error sending message:", e)
+        else:
+            print('No Earlier Appointment Exists')
+    except Exception as e:
+        print("An error occurred:", e)
+    finally:
+        driver.quit()
+        print("WebDriver quit successfully")
+
+# Function to stop the script
+def stop_script(thread):
+    if thread.is_alive():
+        print("Stopping script after 10 seconds")
+        thread.join()
+
+# Create a thread for the Selenium script
+script_thread = threading.Thread(target=run_selenium_script)
+
+# Start the script thread
+script_thread.start()
+        
+# Set a timer for 10 seconds to stop the script
+timer = threading.Timer(20, stop_script, args=[script_thread])
+timer.start()
+
+# Wait for the script thread to finish
+script_thread.join()
+timer.cancel()  # Cancel the timer if the script finishes before 10 seconds
