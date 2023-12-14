@@ -1,3 +1,4 @@
+import threading
 import time
 from selenium import webdriver
 from selenium.webdriver.common.by import By
@@ -9,7 +10,7 @@ import smtplib
 def run_selenium_script():
     try:
         # Initialize WebDriver
-        driver = webdriver.Chrome()  # Ensure Chrome WebDriver is installed and in PATH
+        driver = webdriver.Chrome()  # Make sure you have Chrome WebDriver installed and in PATH
 
         # Navigate to the website
         driver.get('https://nqa3.nemoqappointment.com/Booking/Booking/Index/vh356kg3s6')
@@ -69,11 +70,11 @@ def run_selenium_script():
         # Define the comparison date
         comparison_date = datetime.date(2024, 1, 20)
 
-        # Compare the two dates and send an email if earlier
+        # Compare the two dates and send a text message if earlier
         if retrieved_date < comparison_date:
             print(f'An Earlier Appointment Exists on {retrieved_date}')
             try:
-                # Email settings
+                # Email settings from your original code
                 sender = 'filamaworldlive@gmail.com'
                 password = 'hpkqoljarzssbduj'
                 recipient = '4694411128@tmomail.net'
@@ -91,9 +92,9 @@ def run_selenium_script():
                 
                 server.sendmail(sender, recipient, headers)
                 server.quit()
-                print('Email sent')
+                print('Message sent')
             except Exception as e:
-                print("Error sending email:", e)
+                print("Error sending message:", e)
         else:
             print('No Earlier Appointment Exists')
     except Exception as e:
@@ -102,9 +103,22 @@ def run_selenium_script():
         driver.quit()
         print("WebDriver quit successfully")
 
-# Main loop to run the script every 10 minutes
-while True:
-    run_selenium_script()
-    
-    # Sleep for 600 seconds (10 minutes) before running the script again
-    time.sleep(600)
+# Function to stop the script
+def stop_script(thread):
+    if thread.is_alive():
+        print("Stopping script after 10 seconds")
+        thread.join()
+
+# Create a thread for the Selenium script
+script_thread = threading.Thread(target=run_selenium_script)
+
+# Start the script thread
+script_thread.start()
+
+# Set a timer for 10 seconds to stop the script
+timer = threading.Timer(20, stop_script, args=[script_thread])
+timer.start()
+
+# Wait for the script thread to finish
+script_thread.join()
+timer.cancel()  # Cancel the timer if the script finishes before 10 seconds
