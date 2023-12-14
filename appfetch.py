@@ -1,4 +1,4 @@
-SCRIPT_VERSION = "4.0.0"
+SCRIPT_VERSION = "4.1.0"
 
 import requests
 import os
