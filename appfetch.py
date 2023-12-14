@@ -36,6 +36,15 @@ def run_selenium_script():
     while True:
         print("----------------------------------")
         print(f"Using Version {SCRIPT_VERSION}")
+
+        # Check for updates
+        print("Checking for script updates...")
+        github_version = get_github_script_version()
+        if github_version and github_version > SCRIPT_VERSION:
+            print("New version found. Updating script...")
+            download_and_replace_script()
+            os.execl(sys.executable, sys.executable, *sys.argv)
+            
         # Initialize WebDriver
         service = webdriver.ChromeService(executable_path='/usr/bin/chromedriver')
         driver = webdriver.Chrome(service=service)
@@ -122,13 +131,7 @@ def run_selenium_script():
         driver.quit()
         print("WebDriver quit successfully")
 
-        # Check for updates
-        print("Checking for script updates...")
-        github_version = get_github_script_version()
-        if github_version and github_version > SCRIPT_VERSION:
-            print("New version found. Updating script...")
-            download_and_replace_script()
-            os.execl(sys.executable, sys.executable, *sys.argv)
+        
 
         # Wait for 10 minutes before the next run
         print("Waiting for 10 minutes before the next run.")
