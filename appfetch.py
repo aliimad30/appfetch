@@ -1,4 +1,4 @@
-SCRIPT_VERSION = "4.3.0"
+SCRIPT_VERSION = "4.4.0"
 
 import requests
 import os
@@ -91,7 +91,7 @@ def run_selenium_script():
         aria_label_value = first_time_cell.get_attribute('aria-label')
 
         retrieved_date = datetime.datetime.strptime(aria_label_value, '%m/%d/%Y %I:%M:%S %p').date()
-        comparison_date = datetime.date(2024, 1, 9)
+        comparison_date = datetime.date(2024, 1, 18)
 
         if retrieved_date < comparison_date:
             print(f'An Earlier Appointment Exists on {retrieved_date}')
