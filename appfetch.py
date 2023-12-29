@@ -1,4 +1,4 @@
-SCRIPT_VERSION = "4.4.0"
+SCRIPT_VERSION = "5.0.0"
 
 import requests
 import os
@@ -91,9 +91,10 @@ def run_selenium_script():
         aria_label_value = first_time_cell.get_attribute('aria-label')
 
         retrieved_date = datetime.datetime.strptime(aria_label_value, '%m/%d/%Y %I:%M:%S %p').date()
-        comparison_date = datetime.date(2024, 1, 18)
+        start_comparison_date = datetime.date(2024, 1, 9)
+        end_comparison_date = datetime.date(2024, 1, 18)
 
-        if retrieved_date < comparison_date:
+        if start_comparison_date < retrieved_date < end_comparison_date:
             print(f'An Earlier Appointment Exists on {retrieved_date}')
             sender = 'filamaworldlive@gmail.com'
             password = 'hpkqoljarzssbduj'
@@ -133,10 +134,10 @@ def run_selenium_script():
 
         
 
-        # Wait for 6 hour before the next run
-        print("Waiting for 6 hour before the next run.")
+        # Wait for 1 hour before the next run
+        print("Waiting for 1 hour before the next run.")
         print("--------------------------------------------")
-        time.sleep(21600)
+        time.sleep(3600)
 
 # Start the script
 run_selenium_script()
