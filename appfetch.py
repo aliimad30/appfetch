@@ -1,4 +1,4 @@
-SCRIPT_VERSION = "5.1.0"
+SCRIPT_VERSION = "5.2.0"
 
 import requests
 import os
@@ -92,7 +92,7 @@ def run_selenium_script():
 
         retrieved_date = datetime.datetime.strptime(aria_label_value, '%m/%d/%Y %I:%M:%S %p').date()
         start_comparison_date = datetime.date(2024, 1, 9)
-        end_comparison_date = datetime.date(2024, 1, 30)
+        end_comparison_date = datetime.date(2024, 1, 18)
 
         if start_comparison_date < retrieved_date < end_comparison_date:
             print(f'An Earlier Appointment Exists on {retrieved_date}')
