@@ -1,4 +1,4 @@
-SCRIPT_VERSION = "5.2.0"
+SCRIPT_VERSION = "5.3.0"
 
 import requests
 import os
@@ -111,23 +111,23 @@ def run_selenium_script():
             server.sendmail(sender, recipient, headers)
             server.quit()
             print('App Message sent')
-        else:
-            print('No Earlier Appointment Exists')
-            sender = 'filamaworldlive@gmail.com'
-            password = 'hpkqoljarzssbduj'
-            recipient = 'ali.imad.sultan@gmail.com'
+        #else:
+            #print('No Earlier Appointment Exists')
+            #sender = 'filamaworldlive@gmail.com'
+            #password = 'hpkqoljarzssbduj'
+            #recipient = 'ali.imad.sultan@gmail.com'
 
-            smtp_server = 'smtp.gmail.com'
-            smtp_port = 587
+            #smtp_server = 'smtp.gmail.com'
+            #smtp_port = 587
 
-            server = smtplib.SMTP(smtp_server, smtp_port)
-            server.starttls()
-            server.login(sender, password)
-            msg = f'No Earlier Appointment is Available. {SCRIPT_VERSION}'
-            headers = f"Subject: {msg}\r\n"
-            server.sendmail(sender, recipient, headers)
-            server.quit()
-            print('No App Message sent')
+            #server = smtplib.SMTP(smtp_server, smtp_port)
+            #server.starttls()
+            #server.login(sender, password)
+            #msg = f'No Earlier Appointment is Available. {SCRIPT_VERSION}'
+            #headers = f"Subject: {msg}\r\n"
+            #server.sendmail(sender, recipient, headers)
+            #server.quit()
+            #print('No App Message sent')
 
         driver.quit()
         print("WebDriver quit successfully")
@@ -137,7 +137,7 @@ def run_selenium_script():
         # Wait for 1 hour before the next run
         print("Waiting for 1 hour before the next run.")
         print("--------------------------------------------")
-        time.sleep(3600)
+        time.sleep(3600*6)
 
 # Start the script
 run_selenium_script()
